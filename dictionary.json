@@ -19,6 +19,11 @@
     "definition": "Acting with total indifference to the opinions of others; holding onto a play or a belief that everyone else calls \"skem\" because you know something they don't.",
     "example": "He put his last $100 on a 1.01x crash and won. Degenerate? Yes. Based? Absolutely."
   },
+  "BOBS": {
+    "pronunciation": "bahbz",
+    "definition": "A historically degenerate misspelling of \"boobs.\" Usually requested by down-bad individuals whose bankrolls and romantic prospects are equally busted, seeking a fleeting dopamine hit to distract from their zeroed balance.",
+    "example": "I just lost my rent money on a 1.2x crash, please just send bobs so I can feel something again."
+  },
   "BONUS BUY": {
     "pronunciation": "bo-nus bye",
     "definition": "A feature in slots that lets you skip the boring base-game spins and pay a massive premium (usually 100x) to jump straight into the feature round.",
@@ -28,6 +33,11 @@
     "pronunciation": "bo-nus hunt",
     "definition": "A ritual where a player triggers multiple bonuses across different slots but doesn't open them, saving them all for a massive \"reveal\" at the end of the session.",
     "example": "We’ve collected 20 bonuses. If this hunt doesn't pay, I'm going to be down bad."
+  },
+  "BUSH": {
+    "pronunciation": "boosh",
+    "definition": "The cool points are out the window, I see you Bush.",
+    "example": "Trying to act like a whale after we all watched you beg for a $1 tip? The cool points are out the window, I see you Bush."
   },
   "BUST": {
     "pronunciation": "bust",
@@ -49,10 +59,10 @@
     "definition": "Short for \"Deposit.\" The act of transferring fresh ammunition (funds) into a casino or wallet after the previous balance has been systematically rinsed.",
     "example": "The last run didn't go as planned. Just made a fresh depo—let's see if the luck has shifted."
   },
-  "DM":  {
-    "proununciation": "dee-em",
-    "definition": "1. Direct Message The high-stakes gatekeeping zone of degen communication. Most are instantly ignored or flagged as skems  2. A potential gateway to a senship. If a message bypasses the noise by providing immediate, meaningful value—such as a working free bonus code or a heads up about an airdrop in another group they’re in",
-    "example":  "i almost blocked him, but he slid into my DMs with a $20 no-deposit code that actually worked. Now we’re in a full-blown senship."
+  "DM": {
+    "pronunciation": "dee-em",
+    "definition": "\"Direct Message.\" The front lines of the scamming world. In this culture, any unsolicited DM is a scam until proven otherwise.",
+    "example": "Ignore the DMs from anyone claiming to be 'Support'—they just want your seed phrase."
   },
   "DOWN BAD": {
     "pronunciation": "down bad",
@@ -96,7 +106,7 @@
   },
   "HOPIUM": {
     "pronunciation": "ho-pee-um",
-    "definition": "The irrational conviction that receiving a tiny bit of \"funds\" is the exact spark needed to ignite a legendary comeback and win back every cent previously lost.",
+    "definition": "The irrational conviction that receiving a tiny bit of \"rain\" is the exact spark needed to ignite a legendary comeback and win back every cent previously lost.",
     "example": "I’m sitting in the chat on pure hopium, just waiting for someone to tip me a dollar so I can run it up and fix my whole week."
   },
   "JUICER": {
@@ -116,8 +126,8 @@
   },
   "LFG": {
     "pronunciation": "el-ef-jee",
-    "definition": "\"Let’s Fucking Go!\" The universal battle cry of the degen. Shouted in caps-lock when a multiplier lands or degens hype one another up to play.",
-    "example": "The 1000x multiplier just landed on the last ball! LFG bishs!"
+    "definition": "\"Let’s Fing Go!\" The universal battle cry of the degen. Shouted in caps-lock when a multiplier lands or a pump starts.",
+    "example": "The 1000x multiplier just landed on the last ball! LFG boys!"
   },
   "MARTINGALE": {
     "pronunciation": "mar-tin-gayl",
@@ -246,13 +256,35 @@
   },
   "SENEMY": {
     "pronunciation": "sen-uh-mee",
-    "definition": "A rivalry between two Degens, with origins even jesus christ couldn't explain, yet they still sen small tips back and forth solely to \"flex\"  superior wins.",
+    "definition": "A rival whom you despise, yet you send them small tips solely to \"flex\" your superior wins.",
     "example": "I just sent my senemy a $5 tip with the note: 'Lunch is on me, hope your luck turns around.'"
+  },
+  "sendicate": {
+      "pronunciation": "/sen-di-kit/",
+      "part_of_speech": "noun",
+      "definitions": [
+          "A highly exclusive, tight-knit group chat of trusted degens who operate on mutual respect where every member actively contributes to communal airdrops, rains, and bailouts, ensuring that if one person hits a max win, the whole crew eats."
+      ],
+      "example": "I got rinsed on Roulette, but my Sendicate dropped a private rain in the group chat to get me back in the game."
   },
   "SENSHIP": {
     "pronunciation": "sen-ship",
     "definition": "A symbiotic relationship between two degens built entirely on sending funds back and forth to keep each other in the game.",
     "example": "Me and him have a true senship; he sens to me when I’m bust, and I sen to him when I hit a juicer."
+  },
+  "SENORGY": {
+      "pronunciation": "/sen-or-jee/",
+      "part_of_speech": "noun",
+      "definitions": [
+          "A chaotic, spontaneous mass-tipping event in a casino chat room or Telegram group where multiple degens furiously send funds back and forth to each other simultaneously.",
+          "The ultimate display of collective hype, usually triggered when a whale drops a massive rain or someone hits a life-changing max win, causing the entire community to lose their minds and throw bobs in every direction."
+      ],
+      "example": "The chat was completely dead until someone hit a 10,000x on Plinko, and it instantly turned into a massive senorgy. I caught $50 in tips just by spamming the rocket emoji."
+  },
+  "SHADOW JACKING": {
+    "pronunciation": "shad-oh jak-ing",
+    "definition": "The highly classified, entirely unsolicited act of covertly masturbating while observing a group chat or listening to voice notes, secure in the knowledge that the other participants are completely oblivious. A degenerate flex of total anonymity.",
+    "example": "The squad was deep in an emotional voice chat venting about their crippling depression,  oblivious that Kyle was on mute,  shadow jacking his man junk to the sound of their collective breakdowns."
   },
   "SHADOW JERKIN": {
     "pronunciation": "shad-oh jur-kin",
@@ -276,8 +308,8 @@
   },
   "SNIPE": {
     "pronunciation": "snype",
-    "definition": "To enter a trade or claim an airdrop at the absolute perfect micro-second to maximize profit.",
-    "example": "I managed to snipe that airdrop with a custom hashtag in under two seconds."
+    "definition": "To enter a chat and claim the last of an airdrop at the absolute perfect micro-second before the people who were too busy actually chatting realize.",
+    "example": "I managed to snipe that airdrop with a custom hashtag while they were trying to find their sticker pack."
   },
   "TILT": {
     "pronunciation": "tilt",
@@ -301,27 +333,27 @@
   },
   "WAGMI": {
     "pronunciation": "wag-mee",
-    "definition": "\"We Are All Gonna Make It.\" A communal chant of hope used to build morale during a market pump. Often followed by immediate disaster.",
-    "example": "Look at that chart! WAGMI, boys!"
-  },
-  "WITHDRAWAL": {
-    "pronunciation": "with-draw-al",
-    "definition": "The rare and legendary process of successfully removing funds from a platform. The only true victory in the degen world.",
-    "example": "I hit the 500x and immediately initiated a wd. Not giving it back this time."
+    "definition": "\"We Are All Gonna Make It.\" A communal chant of hope used to build morale win casinos seems to be letting people win. Often followed by immediate disaster.",
+    "example": "Look at that graph! WAGMI, boys!"
   },
   "WEN LAMBO": {
     "pronunciation": "wen lam-bo",
-    "definition": "A mocking or impatient question asked when a project or a win hasn't immediately resulted in life-changing wealth.",
+    "definition": "A mocking or impatient question asked when a win hasn't immediately resulted in life-changing wealth.",
     "example": "The price went up 3%... when lambo?"
+  },
+  "Where 2 sen bobs": {
+    "pronunciation": "wair too sen bahbz",
+    "definition": "Used when a fellow degen provides game hopium inducing tip and the recipient is so thankful they feel they owe them a spectacularly inappropriate reward, like a picture of boobs,(could be male or female) as compensation.",
+    "example": "Bro, that $50 tip just saved me from dusting my last wallet. Where to sen bobs?"
   },
   "WHALE": {
     "pronunciation": "wayl",
     "definition": "A player with a bankroll so massive that their individual bets can shift the energy of an entire chat. The primary source of rain for the community.",
     "example": "A whale just entered the lobby and started doing $1,000 Bonus Buys like they were nothing."
   },
-  "wer to sen bobs": {
-    "pronunciation": "wair too sen bobz",
-    "definition": "The ultimate degen expression of overwhelming gratitude, used when a fellow player provides a game saving tip, airdrop, or a working bonus code, and the recipient is so thankful they feel they owe them a spectacularly inappropriate reward as compensation.(gender universal)",
-    "example": "Bro, that $50 tip just saved me from dusting my last wallet. I'm literally crying. Where to sen bobs?"
+  "WITHDRAWAL": {
+    "pronunciation": "with-draw-al",
+    "definition": "The rare and legendary process of successfully removing funds from a platform. The only true victory in the degen world.",
+    "example": "I hit the 500x and immediately initiated a wd. Not giving it back this time."
   }
 }
