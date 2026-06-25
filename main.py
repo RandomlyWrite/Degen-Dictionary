@@ -17,10 +17,6 @@ def load_dictionary():
         print("Error: dictionary.json is broken JSON.")
         return {}
 
-def save_dictionary(d):
-    with open('dictionary.json', 'w') as f:
-        json.dump(d, f, indent=2)
-
 def load_suggestions():
     try:
         with open(SUGGESTIONS_FILE, 'r') as f:
@@ -31,12 +27,6 @@ def load_suggestions():
 def save_suggestions(suggestions):
     with open(SUGGESTIONS_FILE, 'w') as f:
         json.dump(suggestions, f, indent=2)
-
-def is_admin(user_id: int) -> bool:
-    admin_id = os.environ.get("ADMIN_ID")
-    if not admin_id:
-        return False
-    return str(user_id) == str(admin_id)
 
 degen_dict = load_dictionary()
 
@@ -88,10 +78,10 @@ async def suggest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
             "📖 *How to suggest a word:*\n\n"
-            "`/suggest WORD | definition | example`\n\n"
+            "`/suggest WORD | your definition | example sentence`\n\n"
             "*Example:*\n"
-            "/suggest REKT | Slang for wrecked\\. Total financial wipeout\\. | I went all in on that coin and got absolutely rekt\\.",
-            parse_mode="MarkdownV2"
+            "`/suggest REKT | Total financial wipeout | I went all in and got absolutely rekt`",
+            parse_mode="Markdown"
         )
         return
 
@@ -128,91 +118,6 @@ async def suggest(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
-async def review(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not is_admin(update.effective_user.id):
-        await update.message.reply_text("🚫 Admin only.")
-        return
-
-    suggestions = load_suggestions()
-    if not suggestions:
-        await update.message.reply_text("No pending suggestions.")
-        return
-
-    lines = [f"📋 *{len(suggestions)} pending suggestion(s):*\n"]
-    for word, entry in suggestions.items():
-        lines.append(f"*{word}*")
-        lines.append(entry["definition"])
-        if entry.get("example"):
-            lines.append(f"💬 _{entry['example']}_")
-        if entry.get("suggested_by"):
-            lines.append(f"👤 @{entry['suggested_by']}")
-        lines.append("")
-
-    lines.append("Use `/approve WORD` or `/reject WORD` to manage.")
-    await update.message.reply_text("\n".join(lines), parse_mode="Markdown")
-
-async def approve(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not is_admin(update.effective_user.id):
-        await update.message.reply_text("🚫 Admin only.")
-        return
-
-    if not context.args:
-        await update.message.reply_text("Usage: `/approve WORD`", parse_mode="Markdown")
-        return
-
-    word = " ".join(context.args).upper().strip()
-    suggestions = load_suggestions()
-
-    if word not in suggestions:
-        await update.message.reply_text(
-            f"*{word}* not found in suggestions.", parse_mode="Markdown"
-        )
-        return
-
-    entry = suggestions.pop(word)
-    degen_dict[word] = {
-        "pronunciation": entry.get("pronunciation", ""),
-        "definition": entry["definition"],
-        "example": entry.get("example", "")
-    }
-    save_dictionary(degen_dict)
-    save_suggestions(suggestions)
-
-    await update.message.reply_text(
-        f"✅ *{word}* approved and added to the dictionary!", parse_mode="Markdown"
-    )
-
-async def reject(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not is_admin(update.effective_user.id):
-        await update.message.reply_text("🚫 Admin only.")
-        return
-
-    if not context.args:
-        await update.message.reply_text("Usage: `/reject WORD`", parse_mode="Markdown")
-        return
-
-    word = " ".join(context.args).upper().strip()
-    suggestions = load_suggestions()
-
-    if word not in suggestions:
-        await update.message.reply_text(
-            f"*{word}* not found in suggestions.", parse_mode="Markdown"
-        )
-        return
-
-    suggestions.pop(word)
-    save_suggestions(suggestions)
-
-    await update.message.reply_text(
-        f"❌ *{word}* rejected and removed.", parse_mode="Markdown"
-    )
-
-async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        f"Your Telegram ID is: `{update.effective_user.id}`",
-        parse_mode="Markdown"
-    )
-
 def main():
     token = os.environ.get("BOT_TOKEN")
     if not token:
@@ -220,10 +125,6 @@ def main():
     app = Application.builder().token(token).build()
     app.add_handler(InlineQueryHandler(inline_query))
     app.add_handler(CommandHandler("suggest", suggest))
-    app.add_handler(CommandHandler("review", review))
-    app.add_handler(CommandHandler("approve", approve))
-    app.add_handler(CommandHandler("reject", reject))
-    app.add_handler(CommandHandler("myid", myid))
     print("Degen bot is awake and ready to explain your terrible financial decisions...")
     app.run_polling()
 
