@@ -38,10 +38,9 @@ args = "Start application"
 name = "Start application"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "console"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python3 main.py"
-waitForPort = 8080
-
-[workflows.workflow.metadata]
-outputType = "console"
