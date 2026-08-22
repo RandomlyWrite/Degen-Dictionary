@@ -1,0 +1,9 @@
+.git
+.local
+.agents
+__pycache__
+*.py[cod]
+.env
+.venv
+DEPLOYMENT_GUIDE.md
+NON_REPLIT_DEPLOYMENT_GUIDE.md
