@@ -1,38 +1,65 @@
 import json
+import logging
 import os
-from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
-from telegram.ext import Application, InlineQueryHandler, CommandHandler, ContextTypes
 from uuid import uuid4
 
-SUGGESTIONS_FILE = 'suggestions.json'
+from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
+from telegram.ext import (
+    Application,
+    InlineQueryHandler,
+    CommandHandler,
+    ContextTypes,
+)
 
-def load_dictionary():
+# -------------------------------------------------
+# Logging
+# -------------------------------------------------
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)
+logger = logging.getLogger(__name__)
+
+SUGGESTIONS_FILE = "suggestions.json"
+
+
+def load_dictionary() -> dict:
     try:
-        with open('dictionary.json', 'r') as f:
-            return json.load(f)
+        with open("dictionary.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+        logger.info(f"Loaded {len(data)} terms from dictionary.json")
+        return data
     except FileNotFoundError:
-        print("Error: dictionary.json not found!")
+        logger.error("dictionary.json not found!")
         return {}
-    except json.JSONDecodeError:
-        print("Error: dictionary.json is broken JSON.")
+    except json.JSONDecodeError as e:
+        logger.error(f"dictionary.json is broken JSON: {e}")
+        return {}
+    except Exception as e:
+        logger.error(f"Unexpected error loading dictionary: {e}")
         return {}
 
-def load_suggestions():
+
+def load_suggestions() -> dict:
     try:
-        with open(SUGGESTIONS_FILE, 'r') as f:
+        with open(SUGGESTIONS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
-def save_suggestions(suggestions):
-    with open(SUGGESTIONS_FILE, 'w') as f:
-        json.dump(suggestions, f, indent=2)
+
+def save_suggestions(suggestions: dict) -> None:
+    with open(SUGGESTIONS_FILE, "w", encoding="utf-8") as f:
+        json.dump(suggestions, f, indent=2, ensure_ascii=False)
+
 
 degen_dict = load_dictionary()
+
 
 def search_terms(query: str) -> list:
     if not query:
         return []
+    query = query.upper()
     starts = []
     contains = []
     for term in degen_dict:
@@ -42,15 +69,18 @@ def search_terms(query: str) -> list:
             contains.append(term)
     return starts + contains
 
+
 async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.inline_query.query.upper().strip()
     results = []
     matches = search_terms(query)
+
     for term in matches[:50]:
         entry = degen_dict[term]
         pronunciation = entry.get("pronunciation", "")
         definition = entry.get("definition", "No definition provided")
         example = entry.get("example", "")
+
         lines = [f"*{term}*"]
         if pronunciation:
             lines.append(f"_{pronunciation}_")
@@ -59,8 +89,10 @@ async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if example:
             lines.append("")
             lines.append(f"💬 _{example}_")
+
         message_text = "\n".join(lines)
         preview = definition[:80] + ("..." if len(definition) > 80 else "")
+
         results.append(
             InlineQueryResultArticle(
                 id=str(uuid4()),
@@ -68,11 +100,13 @@ async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 description=preview,
                 input_message_content=InputTextMessageContent(
                     message_text,
-                    parse_mode="Markdown"
-                )
+                    parse_mode="Markdown",
+                ),
             )
         )
+
     await update.inline_query.answer(results, cache_time=10)
+
 
 async def suggest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
@@ -81,7 +115,7 @@ async def suggest(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "`/suggest WORD | your definition | example sentence`\n\n"
             "*Example:*\n"
             "`/suggest REKT | Total financial wipeout | I went all in and got absolutely rekt`",
-            parse_mode="Markdown"
+            parse_mode="Markdown",
         )
         return
 
@@ -92,7 +126,7 @@ async def suggest(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             "Please include at least a word and a definition, separated by `|`\n\n"
             "Example: `/suggest REKT | Total financial wipeout`",
-            parse_mode="Markdown"
+            parse_mode="Markdown",
         )
         return
 
@@ -109,24 +143,40 @@ async def suggest(update: Update, context: ContextTypes.DEFAULT_TYPE):
     suggestions[word] = {
         "definition": definition,
         "example": example,
-        "suggested_by": suggested_by
+        "suggested_by": suggested_by,
     }
     save_suggestions(suggestions)
 
     await update.message.reply_text(
         f"✅ Thanks! *{word}* has been submitted for review.",
-        parse_mode="Markdown"
+        parse_mode="Markdown",
     )
+
+
+async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
+    logger.error("Exception while handling an update:", exc_info=context.error)
+
 
 def main():
     token = os.environ.get("BOT_TOKEN")
     if not token:
-        raise ValueError("No BOT_TOKEN found! Set it as a Replit Secret.")
+        raise ValueError("No BOT_TOKEN found! Set it as an environment variable.")
+
     app = Application.builder().token(token).build()
+
     app.add_handler(InlineQueryHandler(inline_query))
     app.add_handler(CommandHandler("suggest", suggest))
-    print("Degen bot is awake and ready to explain your terrible financial decisions...")
-    app.run_polling()
+    app.add_error_handler(error_handler)
 
-if __name__ == '__main__':
+    logger.info("Degen bot is awake and ready to explain your terrible financial decisions...")
+
+    # Critical flags that help prevent / recover from the Conflict error
+    app.run_polling(
+        drop_pending_updates=True,
+        allowed_updates=Update.ALL_TYPES,
+        close_loop=False,
+    )
+
+
+if __name__ == "__main__":
     main()
